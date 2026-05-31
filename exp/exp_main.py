@@ -353,16 +353,19 @@ class Exp_Main(Exp_Basic):
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
 
-        mae, mse, rmse, mape, mspe, rse, corr = metric(preds, trues)
-        print('mse:{}, mae:{}'.format(mse, mae))
+        mae, mse, rmse, mape, mspe, rse, corr, nse = metric(preds, trues)
+        corr = np.mean(corr)
+        metrics = np.array([mse, mae, rmse, nse, corr])
+        metrics_msg = 'mse:{}, mae:{}, rmse:{}, nse:{}, corr:{}'.format(mse, mae, rmse, nse, corr)
+        print(metrics_msg)
         f = open("result_long_term_forecast.txt", 'a')
         f.write(setting + "  \n")
-        f.write('mse:{}, mae:{}'.format(mse, mae))
+        f.write(metrics_msg)
         f.write('\n')
         f.write('\n')
         f.close()
 
-        # np.save(folder_path + 'metrics.npy', np.array([mae, mse, rmse, mape, mspe,rse, corr]))
+        np.save(folder_path + 'metrics.npy', metrics)
         # np.save(folder_path + 'pred.npy', preds)
         # np.save(folder_path + 'true.npy', trues)
         # np.save(folder_path + 'x.npy', inputx)

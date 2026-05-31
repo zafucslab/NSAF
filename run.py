@@ -18,8 +18,8 @@ parser.add_argument('--is_training', type=int,
                     required=True, default=1, help='status')
 parser.add_argument('--model_id', type=str, required=True,
                     default='test', help='model id')
-parser.add_argument('--model', type=str, required=True, default='Autoformer',
-                    help='model name, options: [Autoformer, Informer, Transformer]')
+parser.add_argument('--model', type=str, required=True, default='NSAF',
+                    help='model name')
 
 # data loader
 parser.add_argument('--data', type=str, required=True,
@@ -45,16 +45,18 @@ parser.add_argument('--label_len', type=int, default=48,
 parser.add_argument('--pred_len', type=int, default=96,
                     help='prediction sequence length')
 
-# CycleNet.
+
 parser.add_argument('--cycle', type=int, default=24, help='cycle length')
 parser.add_argument('--model_type', type=str, default='mlp',
                     help='model type, options: [linear, mlp]')
 parser.add_argument('--use_revin', type=int, default=1,
                     help='1: use revin or 0: no revin')
 
-# DLinear
+
 parser.add_argument('--dec_lev', type=int, default=4,
                     help='wavelet decomposition level')
+parser.add_argument('--wavelet', type=str, default='sym8',
+                    help='wavelet basis, options such as [haar, db4, sym4, coif, dmey]')
 # PatchTST
 parser.add_argument('--fc_dropout', type=float,
                     default=0.05, help='fully connected dropout')
